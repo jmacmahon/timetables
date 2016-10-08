@@ -4,5 +4,9 @@ module.exports = {
         "react",
         "jsx-a11y",
         "import"
-    ]
+    ],
+    "rules": {
+      "no-unused-vars": "warn",
+      "react/prefer-stateless-function": "warn",
+    },
 };
