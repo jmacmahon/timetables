@@ -1,25 +1,12 @@
 const express = require('express');
+const root = require('./root');
+const api = require('./api');
+const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
 
-function randomPoint() {
-  const latOffset = (Math.random() - 0.5) * 0.01;
-  const longOffset = (Math.random() - 0.5) * 0.005;
-  return [53.381089 + latOffset, -1.4834976 + longOffset];
-}
+app.use('/api', api.router);
+app.use('/', root.router);
+app.set('db', MongoClient.connect('mongodb://localhost:27017/modules'));
 
-app.use('/bundled', express.static('client/bundled'));
-app.get('/api/test', (req, res, next) => {
-  res.set('Content-Type', 'application/json');
-  res.send(JSON.stringify({
-    points: [
-      { coords: randomPoint() },
-      { coords: randomPoint() },
-      { coords: randomPoint() },
-      { coords: randomPoint() },
-    ],
-  }));
-});
-app.use('/', express.static('client/static'));
-
-app.listen(3000, () => {});
+app.listen(3000);
