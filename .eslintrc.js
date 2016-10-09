@@ -8,5 +8,6 @@ module.exports = {
     "rules": {
       "no-unused-vars": "warn",
       "react/prefer-stateless-function": "warn",
+      "react/no-multi-comp": "warn",
     },
 };
