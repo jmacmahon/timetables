@@ -29,7 +29,7 @@ class Map extends React.Component {
 
   pollForPoints() {
     request
-      .get('/api/test')
+      .get('/api/test2')
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (!err) {

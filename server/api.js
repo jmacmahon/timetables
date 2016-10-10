@@ -1,4 +1,6 @@
 const Router = require('express').Router;
+const _ = require('lodash');
+const getLocation = require('./locations');
 
 const router = new Router();
 
@@ -25,15 +27,30 @@ router.get('/test', (req, res) => {
 });
 
 router.get('/test2', (req, res) => {
+  const now = new Date(Date.now());
   req.app.get('db')
   .then(db =>
     db.collection('timetables')
-    .find()
-    .limit(20)
+    .find({ $and: [{ 'start-timestamp': { $lte: now } }, { 'end-timestamp': { $gte: now } }] })
     .toArray()
   )
   .then((data) => {
-    res.send(JSON.stringify(data));
+    const pointsP = _.map(data, ev => (
+      getLocation(ev.location)
+      .then((location) => {
+        if (location === null) {
+          return null;
+        }
+        const coords = { coords: [location.lat, location.lon] };
+        return coords;
+      })
+    ));
+    Promise.all(pointsP).then((points) => {
+      const nonNullPoints = _.filter(points, p => (p !== null));
+      res.send(JSON.stringify({
+        points: nonNullPoints,
+      }));
+    });
   });
 });
 
