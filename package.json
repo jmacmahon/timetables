@@ -32,6 +32,7 @@
     "browserify": "^13.1.0",
     "express": "^4.14.0",
     "leaflet": "^1.0.1",
+    "leaflet.heat": "^0.2.0",
     "lodash": "^4.16.4",
     "mongodb": "^2.2.10",
     "react": "^15.3.2",

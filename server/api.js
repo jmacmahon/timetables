@@ -4,34 +4,39 @@ const getLocation = require('./locations');
 
 const router = new Router();
 
-function randomPoint() {
-  const latOffset = (Math.random() - 0.5) * 0.002;
-  const longOffset = (Math.random() - 0.5) * 0.01;
-  return [53.381089 + latOffset, -1.4834976 + longOffset];
+function matchQery() {
+  const now = new Date(Date.now() + (60 * 60 * 1000));
+  // const now = new Date('2016-10-14T12:30:00.000Z');
+  return {
+    $match: {
+      $and: [
+        { 'start-timestamp': { $lte: now } },
+        { 'end-timestamp': { $gte: now } },
+      ],
+    },
+  };
 }
+
+const lookupQuery = {
+  $lookup: {
+    from: 'rooms',
+    foreignField: 'code',
+    localField: 'room',
+    as: 'room_docs',
+  },
+};
 
 router.use('/', (req, res, next) => {
   res.set('Content-Type', 'application/json');
   next();
 });
 
-router.get('/test', (req, res) => {
-  res.send(JSON.stringify({
-    points: [
-      { coords: randomPoint() },
-      { coords: randomPoint() },
-      { coords: randomPoint() },
-      { coords: randomPoint() },
-    ],
-  }));
-});
-
-router.get('/test2', (req, res) => {
-  const now = new Date(Date.now());
+router.get('/now', (req, res) => {
+  const matchQ = matchQery();
   req.app.get('db')
   .then(db =>
     db.collection('timetables')
-    .find({ $and: [{ 'start-timestamp': { $lte: now } }, { 'end-timestamp': { $gte: now } }] })
+    .aggregate([matchQ, lookupQuery])
     .toArray()
   )
   .then((data) => {
@@ -41,8 +46,17 @@ router.get('/test2', (req, res) => {
         if (location === null) {
           return null;
         }
-        const coords = { coords: [location.lat, location.lon] };
-        return coords;
+        ev.coords = [location.lat, location.lon];
+        return ev;
+      })
+      .then(() => {
+        if (ev.room_docs.length !== 0) {
+          ev.capacity = ev.room_docs[0].capacity;
+        } else {
+          ev.capacity = 15;
+        }
+        ev.weight = ev.capacity / 100;
+        return ev;
       })
     ));
     Promise.all(pointsP).then((points) => {
