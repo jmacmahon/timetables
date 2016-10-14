@@ -9,5 +9,6 @@ module.exports = {
       "no-unused-vars": "warn",
       "react/prefer-stateless-function": "warn",
       "react/no-multi-comp": "warn",
+      "no-param-reassign": ["error", { "props": false }],
     },
 };
