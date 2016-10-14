@@ -30,6 +30,7 @@
     "babel-preset-react": "^6.16.0",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
+    "compression": "^1.6.2",
     "express": "^4.14.0",
     "leaflet": "^1.0.1",
     "leaflet.heat": "^0.2.0",

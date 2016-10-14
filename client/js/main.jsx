@@ -3,15 +3,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import L from 'leaflet';
-import heat from 'leaflet.heat';
+import 'leaflet.heat';
 import request from 'superagent';
-import map from 'lodash/map';
+import crunching from './crunching';
 
 class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    // this.markers = [];
   }
 
   componentDidMount() {
@@ -26,9 +25,7 @@ class Map extends React.Component {
   }
 
   componentDidUpdate() {
-    this.heatLayer.setLatLngs(map(this.state.points, point => (
-      [point.coords[0], point.coords[1], point.weight]
-    )));
+    this.heatLayer.setLatLngs(crunching.heatmap(this.state.points));
     this.heatLayer.redraw();
   }
 
@@ -36,10 +33,8 @@ class Map extends React.Component {
     request
       .get('/api/now')
       .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (!err) {
-          this.setState({ points: res.body.points });
-        }
+      .then((res) => {
+        this.setState({ points: res.body.points });
       });
   }
 
@@ -55,4 +50,4 @@ Map.propTypes = {
   pollInterval: React.PropTypes.number,
 };
 
-ReactDOM.render(<Map pollInterval={500} />, document.getElementById('root'));
+ReactDOM.render(<Map pollInterval={5000} />, document.getElementById('root'));

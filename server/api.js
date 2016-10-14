@@ -49,15 +49,6 @@ router.get('/now', (req, res) => {
         ev.coords = [location.lat, location.lon];
         return ev;
       })
-      .then(() => {
-        if (ev.room_docs.length !== 0) {
-          ev.capacity = ev.room_docs[0].capacity;
-        } else {
-          ev.capacity = 15;
-        }
-        ev.weight = ev.capacity / 100;
-        return ev;
-      })
     ));
     Promise.all(pointsP).then((points) => {
       const nonNullPoints = _.filter(points, p => (p !== null));
