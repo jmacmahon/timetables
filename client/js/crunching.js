@@ -21,6 +21,14 @@ function heatmap(points) {
   .value();
 }
 
+function pie(points) {
+  return _.chain(points)
+  .groupBy('dept')
+  .mapValues(v => (v.length))
+  .value();
+}
+
 module.exports = {
   heatmap,
+  pie,
 };

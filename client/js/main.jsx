@@ -32,11 +32,13 @@ class App extends React.Component {
       <Row>
         <Col sm="6">
           <Widget double title="Heat Map" description="Heat Map Description">
-            <Map data={this.state.data.points} />
+            <Map data={this.state.data} />
           </Widget>
         </Col>
         <Col sm="6">
-          <Widget double title="Test" description="Test"><Pie /></Widget>
+          <Widget double title="Test" description="Test">
+            <Pie data={this.state.data} />
+          </Widget>
         </Col>
       </Row>
     </Container>);

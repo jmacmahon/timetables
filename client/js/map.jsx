@@ -21,7 +21,7 @@ class Map extends React.Component {
   }
 
   componentDidUpdate() {
-    const crunched = crunching.heatmap(this.props.data);
+    const crunched = crunching.heatmap(this.props.data.points);
     this.heatLayer.setLatLngs(crunched);
     this.heatLayer.redraw();
   }
@@ -33,7 +33,9 @@ class Map extends React.Component {
 }
 
 Map.propTypes = {
-  data: React.PropTypes.arrayOf(React.PropTypes.object),
+  data: React.PropTypes.shape({
+    points: React.PropTypes.array,
+  }),
 };
 
 module.exports = Map;
