@@ -10,5 +10,6 @@ module.exports = {
       "react/prefer-stateless-function": "warn",
       "react/no-multi-comp": "warn",
       "no-param-reassign": ["error", { "props": false }],
+      "import/extensions": ["error", {"jsx": "always"}],
     },
 };

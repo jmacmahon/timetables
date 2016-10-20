@@ -2,52 +2,45 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import L from 'leaflet';
-import 'leaflet.heat';
+import { Container, Row, Col } from 'reactstrap';
 import request from 'superagent';
-import crunching from './crunching';
 
-class Map extends React.Component {
+import Map from './map.jsx';
+import Pie from './pie.jsx';
+import { Widget } from './ui.jsx';
+
+class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { data: { points: [] } };
   }
 
   componentDidMount() {
-    this.map = L.map('map').setView([53.381089, -1.4834976], 15);
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(this.map);
-    this.heatLayer = L.heatLayer([], { radius: 25 });
-    this.heatLayer.addTo(this.map);
-    this.pollForPoints(this);
-    setInterval(this.pollForPoints.bind(this), this.props.pollInterval);
-  }
-
-  componentDidUpdate() {
-    this.heatLayer.setLatLngs(crunching.heatmap(this.state.points));
-    this.heatLayer.redraw();
+    this.pollForPoints();
+    setInterval(this.pollForPoints.bind(this), 5000);
   }
 
   pollForPoints() {
-    request
-      .get('/api/now')
-      .set('Accept', 'application/json')
-      .then((res) => {
-        this.setState({ points: res.body.points });
-      });
+    const data = request.get('/api/now').set('Accept', 'application/json');
+    data.then((res) => {
+      this.setState({ data: { points: res.body.points } });
+    });
   }
 
   render() {
-    return <div id="map" />;
+    return (<Container fluid>
+      <Row>
+        <Col sm="6">
+          <Widget double title="Heat Map" description="Heat Map Description">
+            <Map data={this.state.data.points} />
+          </Widget>
+        </Col>
+        <Col sm="6">
+          <Widget double title="Test" description="Test"><Pie /></Widget>
+        </Col>
+      </Row>
+    </Container>);
   }
 }
 
-Map.defaultProps = {
-  pollInterval: 5000,
-};
-Map.propTypes = {
-  pollInterval: React.PropTypes.number,
-};
-
-ReactDOM.render(<Map pollInterval={5000} />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
