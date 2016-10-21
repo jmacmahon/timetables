@@ -22,10 +22,12 @@ function heatmap(points) {
 }
 
 function pie(points) {
-  return _.chain(points)
-  .groupBy('dept')
-  .mapValues(v => (v.length))
+  const out = _.chain(points)
+  .groupBy(point => point.code[3])
+  .mapValues(v => v.length)
+  .defaults({ 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 })
   .value();
+  return _.values(out);
 }
 
 module.exports = {

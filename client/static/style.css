@@ -7,11 +7,11 @@
 body {
   background-color: #333333;
   color: #DDDDDD;
-  margin-top: 20px;
   font-family: 'Open Sans', sans-serif;
 }
 
 .widget {
+  margin-top: 20px;
   border: solid #999999 1px;
   background-color: #222222;
 }

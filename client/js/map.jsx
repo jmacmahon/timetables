@@ -6,11 +6,6 @@ import 'leaflet.heat';
 import crunching from './crunching';
 
 class Map extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   componentDidMount() {
     this.map = L.map('map').setView([53.381089, -1.4834976], 15);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {

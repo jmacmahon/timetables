@@ -31,12 +31,16 @@ class App extends React.Component {
     return (<Container fluid>
       <Row>
         <Col sm="6">
-          <Widget double title="Heat Map" description="Heat Map Description">
+          <Widget double title="Heat Map" description="Weighted by room capacity">
             <Map data={this.state.data} />
           </Widget>
         </Col>
         <Col sm="6">
-          <Widget double title="Test" description="Test">
+          <Widget
+            double
+            title="Lectures by Year"
+            description="Unweighted.  Some duplicates e.g. COM6222 = COM3002."
+          >
             <Pie data={this.state.data} />
           </Widget>
         </Col>
