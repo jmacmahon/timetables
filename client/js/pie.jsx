@@ -74,7 +74,7 @@ class PieBuildings extends React.Component {
     let color = tinycolor('#0579C5');
     for (let i = 0; i < n; i += 1) {
       colors.push(color);
-      color = color.clone().spin(120.0 * (crunched.counts[i] / (total + 0.0)));
+      color = color.clone().spin(360.0 * (crunched.counts[i] / (total + 0.0)));
       borders.push(0);
     }
     const data = {
