@@ -83,7 +83,7 @@ class PieBuildings extends React.Component {
         {
           data: crunched.counts,
           backgroundColor: _.map(colors, c => c.toHexString()),
-          hoverBackgroundColor: _.map(colors, c => c.lighten().toHexString()),
+          hoverBackgroundColor: _.map(colors, c => c.lighten(5).toHexString()),
           borderWidth: borders,
         },
       ],
