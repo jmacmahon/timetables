@@ -43,6 +43,7 @@
     "react-chartjs-2": "^1.5.0",
     "react-dom": "^15.3.2",
     "reactstrap": "^3.4.1",
-    "superagent": "^2.3.0"
+    "superagent": "^2.3.0",
+    "tinycolor2": "^1.4.1"
   }
 }

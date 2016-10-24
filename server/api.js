@@ -6,7 +6,7 @@ const router = new Router();
 
 function matchQery() {
   const now = new Date(Date.now() + (60 * 60 * 1000));
-  // const now = new Date('2016-10-14T12:30:00.000Z');
+  // const now = new Date('2016-10-21T13:30:00.000Z');
   return {
     $match: {
       $and: [

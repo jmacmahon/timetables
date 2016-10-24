@@ -2,11 +2,13 @@
 
 import React from 'react';
 import { Pie as PieChart } from 'react-chartjs-2';
+import tinycolor from 'tinycolor2';
+import _ from 'lodash';
 import crunching from './crunching';
 
-class Pie extends React.Component {
+class PieYears extends React.Component {
   render() {
-    const crunched = crunching.pie(this.props.data.points);
+    const crunched = crunching.pieYears(this.props.data.points);
     const data = {
       labels: [
         'Year 0 (Foundation)',
@@ -56,10 +58,55 @@ class Pie extends React.Component {
   }
 }
 
-Pie.propTypes = {
+PieYears.propTypes = {
   data: React.PropTypes.shape({
     points: React.PropTypes.array,
   }),
 };
 
-module.exports = Pie;
+class PieBuildings extends React.Component {
+  render() {
+    const crunched = crunching.pieBuildings(this.props.data.points);
+    const n = crunched.labels.length;
+    const total = _.sum(crunched.counts);
+    const colors = [];
+    const borders = [];
+    let color = tinycolor('#0579C5');
+    for (let i = 0; i < n; i += 1) {
+      colors.push(color);
+      color = color.clone().spin(120.0 * (crunched.counts[i] / (total + 0.0)));
+      borders.push(0);
+    }
+    const data = {
+      labels: crunched.labels,
+      datasets: [
+        {
+          data: crunched.counts,
+          backgroundColor: _.map(colors, c => c.toHexString()),
+          hoverBackgroundColor: _.map(colors, c => c.lighten().toHexString()),
+          borderWidth: borders,
+        },
+      ],
+    };
+    const options = {
+      animation: {
+        duration: 0,
+      },
+      legend: {
+        display: false,
+      },
+    };
+    return <PieChart data={data} options={options} />;
+  }
+}
+
+PieBuildings.propTypes = {
+  data: React.PropTypes.shape({
+    points: React.PropTypes.array,
+  }),
+};
+
+module.exports = {
+  PieYears,
+  PieBuildings,
+};

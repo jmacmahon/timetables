@@ -6,7 +6,7 @@ import { Container, Row, Col } from 'reactstrap';
 import request from 'superagent';
 
 import Map from './map.jsx';
-import Pie from './pie.jsx';
+import { PieBuildings } from './pie.jsx';
 import { Widget } from './ui.jsx';
 
 class App extends React.Component {
@@ -38,10 +38,10 @@ class App extends React.Component {
         <Col sm="6">
           <Widget
             double
-            title="Lectures by Year"
+            title="Lectures by Building"
             description="Unweighted.  Some duplicates e.g. COM6222 = COM3002."
           >
-            <Pie data={this.state.data} />
+            <PieBuildings data={this.state.data} />
           </Widget>
         </Col>
       </Row>
