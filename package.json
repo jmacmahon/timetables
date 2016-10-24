@@ -37,6 +37,7 @@
     "leaflet.heat": "^0.2.0",
     "lodash": "^4.16.4",
     "mongodb": "^2.2.10",
+    "morgan": "^1.7.0",
     "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.3.2",
     "react-addons-transition-group": "^15.3.2",
