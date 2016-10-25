@@ -1,5 +1,40 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Francois+One');
 
+/* Sticky footer */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 40px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+}
+
+#footer-push {
+  height: 20px;
+}
+
+.footer .outer-container {
+  background-color: #222222;
+}
+
+.footer-inner {
+  margin-top: 6px;
+}
+
+.footer-inner .text-muted {
+  margin-top: 6px;
+  margin-right: 20px;
+  float: left;
+}
+
 #map {
   height: 100%;
 }

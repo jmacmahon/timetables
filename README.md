@@ -5,6 +5,8 @@ Available at https://timetables.losingthegame.net/
 
 # Future
 
+- Proper config
+- Actually use Gulp instead of hacked-together nodemon/watchify scripts
 - Queries
   - "What events are on in room X today/this week/right now"
   - "How many students have a free period in which they're likely to still be around uni?"
@@ -16,4 +18,4 @@ Available at https://timetables.losingthegame.net/
 
 Timetable data screenscraped from Sheffield University's [central timetable](http://www-online.shef.ac.uk:3001/pls/live/web_tt.main).
 
-Location data provided by (OpenStreetMap Nominatim)[https://nominatim.openstreetmap.org/]
+Location data provided by [OpenStreetMap Nominatim](https://nominatim.openstreetmap.org/).
