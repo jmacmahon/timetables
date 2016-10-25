@@ -31,14 +31,14 @@ class App extends React.Component {
     return (<Container fluid>
       <Row>
         <Col sm="6">
-          <Widget double title="Heat Map" description="Weighted by room capacity">
+          <Widget double title="Current Lectures Heat Map" description="Weighted by room capacity">
             <Map data={this.state.data} />
           </Widget>
         </Col>
         <Col sm="6">
           <Widget
             double
-            title="Lectures by Building"
+            title="Current Lectures by Building"
             description="Unweighted.  Some duplicates e.g. COM6222 = COM3002."
           >
             <PieBuildings data={this.state.data} />
