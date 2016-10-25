@@ -17,7 +17,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.pollForPoints();
-    setInterval(this.pollForPoints.bind(this), 5000);
+    setInterval(this.pollForPoints.bind(this), 30000);
   }
 
   pollForPoints() {
