@@ -13,6 +13,8 @@ const logger = morgan('combined', {
   stream: logStream,
 });
 
+app.set('trust proxy', true);
+
 app.use(compression());
 app.use(logger);
 app.use('/api', api.router);
