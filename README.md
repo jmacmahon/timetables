@@ -1,7 +1,10 @@
 # timetables
 Visualisation dashboard of timetable data at the University of Sheffield.
 
-Available at https://timetables.losingthegame.net/
+Available at https://timetables.losingthegame.net/ (only displays data in
+timetabled hours).
+
+Screenshot: ![Screenshot of the app in use](/screenshot.png)
 
 # Future
 
